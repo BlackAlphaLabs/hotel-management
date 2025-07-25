@@ -1,34 +1,47 @@
-// src/context/AuthContext.jsx
-import { createContext, useEffect, useState } from "react";
-import API from "../services/api";
-import secureLocalStorage from "react-secure-storage";
+import jwtDecode from "jwt-decode";
+import { createContext, useContext, useState, useEffect } from "react";
 
-export const AuthContext = createContext();
+const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+    const [auth, setAuth] = useState({
+        token: null,
+        user: null,
+        role: null,
+    });
 
-    const loadUser = async () => {
-        try {
-            const token = secureLocalStorage.getItem('login')
-            setUser(token);
-        } catch (err) {
-            setUser(null);
+    useEffect(() => {
+        const storedToken = localStorage.getItem("token");
+        if (storedToken) {
+            const decoded = jwtDecode(storedToken);
+            setAuth({
+                token: storedToken,
+                user: { id: decoded.id, email: decoded.email },
+                role: decoded.role,
+            });
         }
+    }, []);
+
+    const login = (token) => {
+        const decoded = jwtDecode(token);
+        localStorage.setItem("token", token);
+        setAuth({
+            token,
+            user: { id: decoded.id, email: decoded.email },
+            role: decoded.role,
+        });
     };
 
     const logout = () => {
-        localStorage.removeItem("token"); // or whatever token you're using
-        setUser(null);
+        localStorage.removeItem("token");
+        setAuth({ token: null, user: null, role: null });
     };
 
-    useEffect(() => {
-        loadUser();
-    }, []);
-
     return (
-        <AuthContext.Provider value={{ user, setUser, loadUser, logout }}>
+        <AuthContext.Provider value={{ auth, login, logout }}>
             {children}
         </AuthContext.Provider>
     );
 };
+
+export const useAuth = () => useContext(AuthContext);

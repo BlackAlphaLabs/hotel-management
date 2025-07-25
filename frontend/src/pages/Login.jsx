@@ -4,17 +4,29 @@ import useAuth from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import DefaultInput from '../components/Form/DefaultInput';
 import DefaultBtn from '../components/Buttons/DefultBtn';
+import API from '../services/api';
 
 const Login = () => {
     const { values, handleChange } = useForm({ email: '', password: '' });
-    const { setuser } = useAuth();
+    const { login } = useAuth();
     const navigate = useNavigate();
+
+    const headlesubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const res = await API.post('/auth/login', values)
+            login()
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
 
     return (
         <div className="flex justify-center items-center py-16 px-4">
             <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 space-y-6">
                 <h2 className="text-3xl font-semibold text-center text-gray-700">Welcome back to Hotel</h2>
-                <form action="" method="post" className="space-y-4">
+                <form onSubmit={headlesubmit} method="post" className="space-y-4">
                     <DefaultInput
                         type="email"
                         name="email"
