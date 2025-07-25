@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import { CountUp } from 'countup.js';
+import CountUp from 'react-countup';
+
 
 const ErrorCom = ({ errorCode = 503, errorMessage = "Service Unavailable" }) => {
     return (
@@ -8,7 +9,7 @@ const ErrorCom = ({ errorCode = 503, errorMessage = "Service Unavailable" }) => 
                 <h1
                     className="text-6xl font-extrabold text-red-500 drop-shadow-sm"
                 >
-                    <CountUp />
+                    <CountUp end={errorCode}/>
                 </h1>
                 <h2 className="mt-4 text-2xl font-semibold text-gray-700 uppercase">
                     {errorMessage}
