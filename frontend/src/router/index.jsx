@@ -3,6 +3,7 @@ import Login from "../pages/Login";
 import WebsiteLayout from "../layouts/WebsiteLayout";
 import Home from "../pages/Website/Home";
 import ErrorCom from "../components/Error/ErrorCom";
+import Register from "../pages/Register";
 // import Dashboard from "../pages/admin/Dashboard";
 // import Layout from "../layouts/Layout";
 
@@ -16,6 +17,7 @@ const AppRouter = () => (
             </Route>
 
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register /> } />
 
 
 
