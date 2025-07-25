@@ -1,5 +1,7 @@
+// src/context/AuthContext.jsx
 import { createContext, useEffect, useState } from "react";
 import API from "../services/api";
+import secureLocalStorage from "react-secure-storage";
 
 export const AuthContext = createContext();
 
@@ -8,11 +10,16 @@ export const AuthProvider = ({ children }) => {
 
     const loadUser = async () => {
         try {
-            const res = await API.get("/auth/me");
-            setUser(res.data);
+            const token = secureLocalStorage.getItem('login')
+            setUser(token);
         } catch (err) {
             setUser(null);
         }
+    };
+
+    const logout = () => {
+        localStorage.removeItem("token"); // or whatever token you're using
+        setUser(null);
     };
 
     useEffect(() => {
@@ -20,7 +27,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user, setUser, loadUser }}>
+        <AuthContext.Provider value={{ user, setUser, loadUser, logout }}>
             {children}
         </AuthContext.Provider>
     );

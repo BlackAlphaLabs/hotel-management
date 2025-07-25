@@ -1,12 +1,20 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "../pages/Login";
+import WebsiteLayout from "../layouts/WebsiteLayout";
+import Home from "../pages/Website/Home";
 // import Dashboard from "../pages/admin/Dashboard";
 // import Layout from "../layouts/Layout";
 
 const AppRouter = () => (
     <BrowserRouter>
         <Routes>
+            <Route path="/" element={<WebsiteLayout />}>
+                <Route index element={<Home />} />
+            </Route>
+
             <Route path="/login" element={<Login />} />
+
+
 
             {/* <Route element={<Layout />}>
                 <Route path="/admin/dashboard" element={<Dashboard />} />
