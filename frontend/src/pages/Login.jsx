@@ -15,7 +15,14 @@ const Login = () => {
         e.preventDefault();
         try {
             const res = await API.post('/auth/login', values)
-            login()
+            if(res.data.success === true ){
+                login(res.data.token)
+                alert(res.data.message)
+                navigate('/register')
+            }
+            else if(res.data.success === false ) {
+                alert(res.data.message)
+            }
         }
         catch (err) {
             console.log(err)
