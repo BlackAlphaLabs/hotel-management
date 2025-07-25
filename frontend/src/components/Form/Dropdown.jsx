@@ -13,7 +13,7 @@ const Dropdown = ({ label, name, onChange, required = false, options = [] }) => 
                 name={name}
                 onChange={onChange}
                 required={required}
-                className="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-500 transition"
+                className="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-green-700 transition"
             >
                 <option value="">Select an option</option>
                 {options.map((opt, idx) => (
