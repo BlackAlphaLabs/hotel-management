@@ -1,14 +1,13 @@
-// src/context/AuthContext.jsx
+import { createContext, useContext, useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 
-import { createContext, useContext, useState, useEffect } from "react";
-
-// const AuthContext = createContext();
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+
     const [auth, setAuth] = useState({
         token: null,
+        id: null,
         user: null,
         role: null,
     });
@@ -24,13 +23,14 @@ export const AuthProvider = ({ children }) => {
             const decoded = jwtDecode(storedToken);
             setAuth({
                 token: storedToken,
+                id: decoded.id,
                 user: { id: decoded.id, email: decoded.email },
                 role: decoded.role,
             });
         }
     }, []);
 
-    // Decode token and update verifyEmailInfo
+
     const handleEmailVerificationToken = (token) => {
         const decoded = jwtDecode(token);
         localStorage.setItem("emailverify", token);
@@ -45,16 +45,17 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("token", token);
         setAuth({
             token,
+            id: decoded.id,
             user: { id: decoded.id, email: decoded.email },
             role: decoded.role,
         });
     };
 
     const logout = () => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("emailverify");
-        setAuth({ token: null, user: null, role: null });
+        localStorage.clear()
+        setAuth({ token: null, id: null, user: null, role: null });
         setVerifyEmailInfo({ email: null, otp: null });
+        naviagte('/login', { replace: true })
     };
 
     return (
