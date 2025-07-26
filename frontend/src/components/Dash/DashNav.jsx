@@ -37,33 +37,37 @@ const DashNav = ({ username = "Jehan Kandy", role = "Admin", handleLogout }) => 
                             setUserMenuOpen(false);
                         }}
                         className="relative text-gray-600 hover:text-indigo-600 transition focus:outline-none"
+                        aria-haspopup="true"
+                        aria-expanded={notifMenuOpen}
+                        aria-label="Notifications"
                     >
                         <FaBell size={22} />
                         <span className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-red-500 animate-ping" />
                     </button>
 
+                    {/* Notification dropdown */}
                     <div
-                        className={`absolute right-0 mt-3 w-80 origin-top-right bg-white border border-indigo-200 shadow-lg rounded-xl overflow-hidden transition-all duration-200
-                            ${notifMenuOpen ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"}`}
+                        className={`fixed top-16 right-4 z-50 w-[calc(100vw-2rem)] max-w-sm sm:absolute sm:w-80 origin-top-right bg-white border border-indigo-200 shadow-lg rounded-xl overflow-hidden transition-all duration-200
+                            ${notifMenuOpen ? "opacity-100 scale-100 pointer-events-auto" : "opacity-0 scale-95 pointer-events-none"}`}
                     >
-                        <div className="p-4 text-indigo-800 font-semibold border-b bg-indigo-50">
+                        <div className="p-4 text-indigo-800 font-semibold border-b bg-indigo-50 select-none">
                             Notifications
                         </div>
-                        <ul className="max-h-56 overflow-y-auto p-4 space-y-2">
-                            <li className="bg-white rounded-lg px-4 py-3 shadow hover:bg-indigo-100 transition cursor-pointer">
+                        <ul className="max-h-64 overflow-y-auto p-4 space-y-3">
+                            <li className="bg-indigo-50 rounded-lg px-4 py-3 shadow-sm hover:shadow-md hover:bg-indigo-100 transition cursor-pointer">
                                 You have 3 new messages
                             </li>
-                            <li className="bg-white rounded-lg px-4 py-3 shadow hover:bg-indigo-100 transition cursor-pointer">
+                            <li className="bg-indigo-50 rounded-lg px-4 py-3 shadow-sm hover:shadow-md hover:bg-indigo-100 transition cursor-pointer">
                                 Your password was changed
                             </li>
-                            <li className="bg-white rounded-lg px-4 py-3 shadow hover:bg-indigo-100 transition cursor-pointer">
+                            <li className="bg-indigo-50 rounded-lg px-4 py-3 shadow-sm hover:shadow-md hover:bg-indigo-100 transition cursor-pointer">
                                 New user registered
                             </li>
                         </ul>
                     </div>
                 </div>
 
-                {/* User menu */}
+                {/* User menu unchanged */}
                 <div className="relative" ref={userMenuRef}>
                     <button
                         onClick={() => {
@@ -77,8 +81,8 @@ const DashNav = ({ username = "Jehan Kandy", role = "Admin", handleLogout }) => 
                     </button>
 
                     <div
-                        className={`absolute right-0 mt-3 w-72 origin-top-right bg-white border border-indigo-200 shadow-lg rounded-3xl overflow-hidden transition-transform duration-200
-                            ${userMenuOpen ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"}`}
+                        className={`absolute right-0 mt-7 w-72 origin-top-right bg-white border border-indigo-200 shadow-lg rounded-3xl overflow-hidden transition-transform duration-200
+                            ${userMenuOpen ? "opacity-100 scale-100 pointer-events-auto" : "opacity-0 scale-95 pointer-events-none"}`}
                     >
                         <div className="p-5 border-b border-indigo-200 text-center bg-indigo-50">
                             <FaUser className="mx-auto mb-2 p-3 rounded-full border border-indigo-300 bg-white text-indigo-600 shadow-lg" size={60} />

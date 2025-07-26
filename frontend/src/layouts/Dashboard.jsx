@@ -34,7 +34,7 @@ const Dashboard = () => {
                 {/* Backdrop */}
                 {isSidebarOpen && (
                     <div
-                        className="fixed inset-0 bg-black/40 z-30 lg:hidden"
+                        className="fixed inset-0 z-30 lg:hidden"
                         onClick={() => setSidebarOpen(false)}
                     />
                 )}
@@ -46,12 +46,11 @@ const Dashboard = () => {
                         <DashNav />
                     </div>
 
-                    {/* Sidebar Toggle on Mobile */}
-                    <div className="lg:hidden px-4 py-3 bg-white/80 backdrop-blur-md shadow-md flex items-center justify-between rounded-b-2xl">
-                        <h1 className="text-lg font-semibold text-indigo-700">Dashboard</h1>
+                    <div className="lg:hidden fixed top-4 left-4 z-50">
                         <button
                             onClick={() => setSidebarOpen(!isSidebarOpen)}
                             className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white p-2 rounded-lg shadow-md hover:scale-105 transition"
+                            aria-label="Toggle sidebar"
                         >
                             {isSidebarOpen ? <X size={20} /> : <Menu size={20} />}
                         </button>

@@ -41,7 +41,7 @@ const DashSide = () => {
 
     return (
         <div className="min-h-full text-indigo-900">
-            <h3 className="py-4 text-xl font-bold mb-6 pl-2 flex items-center gap-2 text-purple-700">
+            <h3 className="pt-0 pb-4 text font-bold mb-6 pl-0 flex items-center gap-2 text-purple-700">
                 <FaBuilding className="h-6 text-purple-500" />
                 <span>Hotel Management</span>
             </h3>
