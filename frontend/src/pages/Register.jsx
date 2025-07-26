@@ -18,11 +18,11 @@ const Register = () => {
             const res = await API.post('/auth/register', values)
             if (res.data.success === true) {
                 verifyeamil(res.data.token)
-                alert(res.data.Message)
+                alert(res.data.message)
                 navigate('/verify-email-otp')
             }
             else{
-                alert(res.data.Error)
+                alert(res.data.message)
             }
         }
         catch (err) {

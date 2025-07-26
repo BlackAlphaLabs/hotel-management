@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const crypto = require('crypto');
 const UserOTP = require("../models/UserOTP");
 const sendEmail = require("../utils/emailTransporter");
+const Role = require("../models/Role");
 
 const authController = {
     register: async (req, res) => {
@@ -16,16 +17,19 @@ const authController = {
                 ]
             })
 
-            if (!checkuser) {
+            if (checkuser) {
                 return res.json({ success: false, message: 'User Already in Database' })
             }
 
             const hashpass = await bcrypt.hash(password, 10)
 
+            const getroleid = await Role.findOne({ name: 'guest'})
+
             const createuser = new User({
                 username: username,
                 email: email,
-                password: hashpass
+                password: hashpass,
+                role: getroleid._id
             })
 
             const resultcreateuser = await createuser.save()
