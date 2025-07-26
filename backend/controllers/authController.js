@@ -6,7 +6,6 @@ const sendEmail = require("../utils/emailTransporter");
 const Role = require("../models/Role");
 const tokenCreator = require('../utils/tokenCreator')
 const jwt = require('jsonwebtoken');
-const { decode } = require("punycode");
 
 const authController = {
     register: async (req, res) => {
@@ -152,6 +151,32 @@ const authController = {
 
         }
         catch (err) {
+            console.log(err)
+        }
+    },
+
+    login: async(req, res) => {
+        try{
+            const {
+                email,
+                password
+            } = req.body
+
+            const checkuser = await User.findOne({ email: email })
+
+            if(!checkuser){
+                return res.json({ success: false, message: "User Not in Database"})
+            }
+
+            const checkpass = await bcrypt.compare(password, checkuser.password)
+
+            if(!checkpass){
+                return res.json({ success: false, message: "Password Not Match"})
+            }
+
+            const getuserrole = await Role.findOne({ })
+        }
+        catch(err){
             console.log(err)
         }
     }
