@@ -5,7 +5,8 @@ const UserOTP = require("../models/UserOTP");
 const sendEmail = require("../utils/emailTransporter");
 const Role = require("../models/Role");
 const tokenCreator = require('../utils/tokenCreator')
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const { decode } = require("punycode");
 
 const authController = {
     register: async (req, res) => {
@@ -137,6 +138,7 @@ const authController = {
             )
 
             if(updateuser){
+                const deleteotp = await UserOTP.findOneAndDelete({ email: decode.email })
                 return res.json({ success: true, message: "Email Verification Successful"})
             }
             else{

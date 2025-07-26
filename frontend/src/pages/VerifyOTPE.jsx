@@ -9,7 +9,24 @@ import API from '../services/api'
 const VerifyOTPE = () => {
     const token = localStorage.getItem('emailverify')
     const navigate = useNavigate()
-    const { verifyEmailInfo } = useAuth()
+    const { verifyEmailInfo, handleEmailVerificationToken } = useAuth()
+
+    useEffect(() => {
+        if (!token) {
+            navigate('/login', { replace: true })
+        }
+    }, [token, navigate])
+
+    useEffect(() => {
+        if (!verifyEmailInfo.email && token) {
+            try {
+                handleEmailVerificationToken(token)
+            } catch (err) {
+                localStorage.removeItem('emailverify')
+                navigate('/login')
+            }
+        }
+    }, [verifyEmailInfo, token, handleEmailVerificationToken, navigate])
 
     const { values, handleChange } = useForm({ email: verifyEmailInfo.email, otp: '' })
 
@@ -19,11 +36,12 @@ const VerifyOTPE = () => {
             const res = await API.post('/auth/verify-otp-email', values, {
                 headers: { Authorization: `Bearer ${token}` }
             })
-            if(res.data.success === true){
+            if (res.data.success === true) {
                 alert(res.data.message)
+                localStorage.clear()
                 navigate('/login', { replace: true })
             }
-            else{
+            else {
                 alert(res.data.message)
             }
 
@@ -33,12 +51,6 @@ const VerifyOTPE = () => {
         }
     }
 
-    useEffect(() => {
-        if (!verifyEmailInfo.email || !verifyEmailInfo.otp) {
-            localStorage.clear()
-            navigate('/login')
-        }
-    }, [verifyEmailInfo, navigate])
 
     return (
         <div className="flex justify-center items-center py-16 px-4">
