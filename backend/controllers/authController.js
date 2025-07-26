@@ -155,8 +155,8 @@ const authController = {
         }
     },
 
-    login: async(req, res) => {
-        try{
+    login: async (req, res) => {
+        try {
             const {
                 email,
                 password
@@ -164,19 +164,32 @@ const authController = {
 
             const checkuser = await User.findOne({ email: email })
 
-            if(!checkuser){
-                return res.json({ success: false, message: "User Not in Database"})
+            if (!checkuser) {
+                return res.json({ success: false, message: "User Not in Database" })
             }
 
             const checkpass = await bcrypt.compare(password, checkuser.password)
 
-            if(!checkpass){
-                return res.json({ success: false, message: "Password Not Match"})
+            if (!checkpass) {
+                return res.json({ success: false, message: "Password Not Match" })
             }
 
-            const getuserrole = await Role.findOne({ })
+            const getuserrole = await Role.findById(checkuser.role)
+
+            console.log(getuserrole)
+
+            const token = tokenCreator(
+                {
+                    id: checkuser._id,
+                    email: checkuser.email,
+                    role: getuserrole.name
+                },
+                '1d'
+            );
+
+            return res.json({ success: true, token: token, message: "Login Success"})
         }
-        catch(err){
+        catch (err) {
             console.log(err)
         }
     }
