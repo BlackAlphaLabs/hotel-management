@@ -4,19 +4,22 @@ import { useNavigate } from 'react-router-dom'
 import DefaultBtn from '../components/Buttons/DefultBtn'
 import DefaultInput from '../components/Form/DefaultInput'
 import API from '../services/api'
+import useAuth from '../hooks/useAuth'
 
 
 const Register = () => {
     const { values, handleChange } = useForm({ username: '', email: '', password: '' })
     const navigate = useNavigate()
+    const { verifyeamil } = useAuth()
 
     const headlesubmit = async (e) => {
         e.preventDefault();
         try {
             const res = await API.post('/auth/register', values)
             if (res.data.success === true) {
+                verifyeamil(res.data.token)
                 alert(res.data.Message)
-                navigate('/login')
+                navigate('/verify-email-otp')
             }
             else{
                 alert(res.data.Error)

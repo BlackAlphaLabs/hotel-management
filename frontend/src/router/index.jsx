@@ -4,6 +4,7 @@ import WebsiteLayout from "../layouts/WebsiteLayout";
 import Home from "../pages/Website/Home";
 import ErrorCom from "../components/Error/ErrorCom";
 import Register from "../pages/Register";
+import VerifyOTPE from "../pages/VerifyOTPE";
 // import Dashboard from "../pages/admin/Dashboard";
 // import Layout from "../layouts/Layout";
 
@@ -18,6 +19,7 @@ const AppRouter = () => (
 
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register /> } />
+            <Route path="/verify-email-otp" element={<VerifyOTPE /> } />
 
 
 

@@ -1,3 +1,4 @@
+// src/context/AuthContext.jsx
 import jwtDecode from "jwt-decode";
 import { createContext, useContext, useState, useEffect } from "react";
 
@@ -8,6 +9,11 @@ export const AuthProvider = ({ children }) => {
         token: null,
         user: null,
         role: null,
+    });
+
+    const [verifyEmailInfo, setVerifyEmailInfo] = useState({
+        email: null,
+        otp: null,
     });
 
     useEffect(() => {
@@ -22,6 +28,16 @@ export const AuthProvider = ({ children }) => {
         }
     }, []);
 
+    // Decode token and update verifyEmailInfo
+    const handleEmailVerificationToken = (token) => {
+        const decoded = jwtDecode(token);
+        localStorage.setItem("emailverify", token);
+        setVerifyEmailInfo({
+            email: decoded.email,
+            otp: decoded.otp,
+        });
+    };
+
     const login = (token) => {
         const decoded = jwtDecode(token);
         localStorage.setItem("token", token);
@@ -34,11 +50,19 @@ export const AuthProvider = ({ children }) => {
 
     const logout = () => {
         localStorage.removeItem("token");
+        localStorage.removeItem("emailverify");
         setAuth({ token: null, user: null, role: null });
+        setVerifyEmailInfo({ email: null, otp: null });
     };
 
     return (
-        <AuthContext.Provider value={{ auth, login, logout }}>
+        <AuthContext.Provider value={{
+            auth,
+            verifyEmailInfo,
+            handleEmailVerificationToken,
+            login,
+            logout,
+        }}>
             {children}
         </AuthContext.Provider>
     );
