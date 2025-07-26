@@ -10,14 +10,14 @@ import useAuth from '../hooks/useAuth'
 const Register = () => {
     const { values, handleChange } = useForm({ username: '', email: '', password: '' })
     const navigate = useNavigate()
-    const { verifyeamil } = useAuth()
+    const { handleEmailVerificationToken } = useAuth()
 
     const headlesubmit = async (e) => {
         e.preventDefault();
         try {
             const res = await API.post('/auth/register', values)
             if (res.data.success === true) {
-                verifyeamil(res.data.token)
+                handleEmailVerificationToken(res.data.token)
                 alert(res.data.message)
                 navigate('/verify-email-otp')
             }

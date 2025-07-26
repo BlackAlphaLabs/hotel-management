@@ -9,9 +9,9 @@ import API from '../services/api'
 const VerifyOTPE = () => {
     const token = localStorage.getItem('emailverify')
     const navigate = useNavigate()
-    const { verifyEmailInfo, handleEmailVerificationToken } = useAuth()
+    const { verifyEmailInfo } = useAuth()
 
-    const [values, headleonChange] = useForm({ email: verifyEmailInfo.email, otp: '' })
+    const { values, handleChange } = useForm({ email: verifyEmailInfo.email, otp: '' })
 
     const headlesubmit = async (e) => {
         e.preventDefault()
@@ -20,7 +20,6 @@ const VerifyOTPE = () => {
                 headers: { Authorization: `Bearer ${token}` }
             })
             if(res.data.success === true){
-                handleEmailVerificationToken(token)
                 alert(res.data.message)
                 navigate('/login', { replace: true })
             }
@@ -51,7 +50,7 @@ const VerifyOTPE = () => {
                         type='text'
                         name={'otp'}
                         value={values.otp}
-                        onChange={headleonChange}
+                        onChange={handleChange}
                         required
                         placeholder={"Enter OTP Here"}
                     />

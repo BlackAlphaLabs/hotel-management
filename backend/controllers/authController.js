@@ -4,6 +4,8 @@ const crypto = require('crypto');
 const UserOTP = require("../models/UserOTP");
 const sendEmail = require("../utils/emailTransporter");
 const Role = require("../models/Role");
+const tokenCreator = require('../utils/tokenCreator')
+const jwt = require('jsonwebtoken')
 
 const authController = {
     register: async (req, res) => {
@@ -129,7 +131,7 @@ const authController = {
             }
 
             const updateuser = await User.findOneAndUpdate(
-                { email: email },
+                { email: decoded.email },
                 { $set: { isEmailVerified: true } },
                 { new: true }
             )
