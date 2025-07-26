@@ -5,6 +5,7 @@ import Home from "../pages/Website/Home";
 import ErrorCom from "../components/Error/ErrorCom";
 import Register from "../pages/Register";
 import VerifyOTPE from "../pages/VerifyOTPE";
+import Dashboard from "../layouts/Dashboard";
 // import Dashboard from "../pages/admin/Dashboard";
 // import Layout from "../layouts/Layout";
 
@@ -21,7 +22,7 @@ const AppRouter = () => (
             <Route path="/register" element={<Register /> } />
             <Route path="/verify-email-otp" element={<VerifyOTPE /> } />
 
-
+            <Route path="/Dashboard" element={<Dashboard /> } />
 
             {/* <Route element={<Layout />}>
                 <Route path="/admin/dashboard" element={<Dashboard />} />
