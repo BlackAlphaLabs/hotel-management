@@ -31,7 +31,7 @@ const DashNav = () => {
 
     const headleLogout = () => {
         localStorage.clear()
-        navigate('/login', { replace: true })
+        window.location.reload()
     }
 
     return (
