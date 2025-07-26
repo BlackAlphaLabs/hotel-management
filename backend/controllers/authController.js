@@ -176,7 +176,7 @@ const authController = {
 
             const getuserrole = await Role.findById(checkuser.role)
 
-            console.log(getuserrole)
+            // console.log(getuserrole)
 
             const token = tokenCreator(
                 {
