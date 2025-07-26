@@ -182,6 +182,7 @@ const authController = {
                 {
                     id: checkuser._id,
                     email: checkuser.email,
+                    username: checkuser.username,
                     role: getuserrole.name
                 },
                 '1d'

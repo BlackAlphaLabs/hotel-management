@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
             setAuth({
                 token: storedToken,
                 id: decoded.id,
-                user: { id: decoded.id, email: decoded.email },
+                user: { id: decoded.id, email: decoded.email, username: decoded.username },
                 role: decoded.role,
             });
         }
@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
         setAuth({
             token,
             id: decoded.id,
-            user: { id: decoded.id, email: decoded.email },
+            user: { id: decoded.id, email: decoded.email, username: decoded.username },
             role: decoded.role,
         });
     };

@@ -1,12 +1,17 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FaUserCog, FaCog, FaPowerOff, FaUser, FaBell } from "react-icons/fa";
+import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
-const DashNav = ({ username = "Jehan Kandy", role = "Admin", handleLogout }) => {
+const DashNav = () => {
     const [userMenuOpen, setUserMenuOpen] = useState(false);
     const [notifMenuOpen, setNotifMenuOpen] = useState(false);
+    const navigate = useNavigate()
 
     const userMenuRef = useRef();
     const notifMenuRef = useRef();
+
+    const { auth } = useAuth();
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -23,6 +28,11 @@ const DashNav = ({ username = "Jehan Kandy", role = "Admin", handleLogout }) => 
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
+
+    const headleLogout = () => {
+        localStorage.clear()
+        navigate('/login', { replace: true })
+    }
 
     return (
         <nav className="bg-white/80 backdrop-blur-md border-b border-gray-200 px-6 py-4 flex justify-between items-center shadow-md">
@@ -77,7 +87,7 @@ const DashNav = ({ username = "Jehan Kandy", role = "Admin", handleLogout }) => 
                         className="flex items-center gap-2 focus:outline-none text-gray-700 hover:text-indigo-600 transition"
                     >
                         <FaUser className="h-10 w-10 rounded-full border border-gray-300 p-2 bg-gray-100 shadow" size={30} />
-                        <span className="font-medium">{username}</span>
+                        <span className="font-medium">{auth.user.username}</span>
                     </button>
 
                     <div
@@ -86,8 +96,8 @@ const DashNav = ({ username = "Jehan Kandy", role = "Admin", handleLogout }) => 
                     >
                         <div className="p-5 border-b border-indigo-200 text-center bg-indigo-50">
                             <FaUser className="mx-auto mb-2 p-3 rounded-full border border-indigo-300 bg-white text-indigo-600 shadow-lg" size={60} />
-                            <h2 className="pt-2 text-lg font-bold text-gray-900">{username}</h2>
-                            <p className="text-xs text-indigo-600 uppercase font-semibold">{role}</p>
+                            <h2 className="pt-2 text-lg font-bold text-gray-900">{auth.user.email}</h2>
+                            <p className="text-xs text-indigo-600 uppercase font-semibold">{auth.role}</p>
                         </div>
                         <div className="p-3 space-y-2">
                             <a href="/Dashboard/Profile" className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-indigo-100 text-indigo-700 transition font-semibold">
@@ -97,7 +107,7 @@ const DashNav = ({ username = "Jehan Kandy", role = "Admin", handleLogout }) => 
                                 <FaCog /> Settings
                             </a>
                             <button
-                                onClick={handleLogout}
+                                onClick={headleLogout}
                                 className="w-full flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-red-50 text-red-600 font-semibold transition"
                             >
                                 <FaPowerOff /> Logout
