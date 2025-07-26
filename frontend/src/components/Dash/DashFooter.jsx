@@ -1,9 +1,7 @@
-import React from 'react';
-
 const DashFooter = () => {
     return (
-        <footer className="bg-white shadow px-4 py-3 text-center text-sm text-gray-500">
-            &copy; {new Date().getFullYear()} Your Company. All rights reserved.
+        <footer className="bg-white/70 backdrop-blur-md border-t border-purple-200 text-center py-4 text-sm text-gray-500 shadow-inner">
+            © {new Date().getFullYear()} Jehan Kandy · All Rights Reserved.
         </footer>
     );
 };

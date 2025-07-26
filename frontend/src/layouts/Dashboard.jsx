@@ -1,15 +1,16 @@
 import { useState } from "react";
-import DashFooter from "../components/Dash/DashFooter";
+import { Outlet } from "react-router-dom";
+import { Menu, X } from "lucide-react";
 import DashNav from "../components/Dash/DashNav";
 import DashSide from "../components/Dash/DashSide";
-import { Outlet } from "react-router-dom";
+import DashFooter from "../components/Dash/DashFooter";
 
 const Dashboard = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
 
     return (
-        <div className="min-h-screen flex flex-col">
-            {/* Top nav for mobile/tablet */}
+        <div className="min-h-screen flex flex-col bg-gradient-to-br from-purple-200 via-indigo-100 to-sky-100">
+            {/* Top Navigation for Mobile/Tablet */}
             <div className="lg:hidden">
                 <DashNav />
             </div>
@@ -17,47 +18,51 @@ const Dashboard = () => {
             <div className="flex flex-1 overflow-hidden">
                 {/* Sidebar */}
                 <aside
-                    className={`fixed lg:static z-40 top-0 left-0 h-full w-64 bg-white shadow-md transition-transform duration-300
+                    className={`
+                        fixed lg:static z-40 top-0 left-0 h-screen w-64 
+                        bg-white/70 backdrop-blur-md border-r border-purple-200 shadow-2xl 
+                        transition-transform duration-300 ease-in-out
                         ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}
-                        lg:translate-x-0
-                        flex-shrink-0
+                        lg:translate-x-0 flex-shrink-0 rounded-tr-3xl
                     `}
                 >
-                    <div className="h-full max-h-screen overflow-y-auto">
+                    <div className="h-full max-h-screen overflow-y-auto p-6">
                         <DashSide />
                     </div>
                 </aside>
 
-                {/* Backdrop for mobile */}
+                {/* Backdrop */}
                 {isSidebarOpen && (
                     <div
-                        className="fixed inset-0 bg-opacity-50 z-30 lg:hidden"
+                        className="fixed inset-0 bg-black/40 z-30 lg:hidden"
                         onClick={() => setSidebarOpen(false)}
                     />
                 )}
 
-                {/* Main content */}
-                <main className="flex-1 flex flex-col ml-0 lg:ml-0 overflow-hidden">
+                {/* Main Content Area */}
+                <main className="flex-1 flex flex-col overflow-hidden">
                     {/* Desktop Nav */}
                     <div className="hidden lg:block">
                         <DashNav />
                     </div>
 
-                    {/* Toggle Sidebar Button */}
-                    <div className="lg:hidden px-4 py-2">
+                    {/* Sidebar Toggle on Mobile */}
+                    <div className="lg:hidden px-4 py-3 bg-white/80 backdrop-blur-md shadow-md flex items-center justify-between rounded-b-2xl">
+                        <h1 className="text-lg font-semibold text-indigo-700">Dashboard</h1>
                         <button
                             onClick={() => setSidebarOpen(!isSidebarOpen)}
-                            className="bg-gray-800 text-white px-4 py-2 rounded"
+                            className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white p-2 rounded-lg shadow-md hover:scale-105 transition"
                         >
-                            {isSidebarOpen ? "Hide Menu" : "Show Menu"}
+                            {isSidebarOpen ? <X size={20} /> : <Menu size={20} />}
                         </button>
                     </div>
 
-                    {/* Page content (non-scrolling sidebar) */}
-                    <div className="flex-1 overflow-y-auto p-4 bg-gray-100">
+                    {/* Page Content */}
+                    <div className="flex-1 overflow-y-auto p-6 bg-white/90 rounded-t-3xl shadow-inner border-t border-indigo-100">
                         <Outlet />
                     </div>
 
+                    {/* Footer */}
                     <DashFooter />
                 </main>
             </div>
