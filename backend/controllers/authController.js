@@ -26,7 +26,7 @@ const authController = {
 
             const hashpass = await bcrypt.hash(password, 10)
 
-            const getroleid = await Role.findOne({ name: 'guest'})
+            const getroleid = await Role.findOne({ name: 'guest' })
 
             const createuser = new User({
                 username: username,
@@ -137,12 +137,17 @@ const authController = {
                 { new: true }
             )
 
-            if(updateuser){
-                const deleteotp = await UserOTP.findOneAndDelete({ email: decode.email })
-                return res.json({ success: true, message: "Email Verification Successful"})
+            if (updateuser) {
+                if (updateuser) {
+                    const deleteotp = await UserOTP.findOneAndDelete({ email: decoded.email })
+                    if (deleteotp) {
+                        return res.json({ success: true, message: "Email Verification Successful" })
+                    }
+                }
+
             }
-            else{
-                return res.json({ success: false, message: "Internal Server Error"})
+            else {
+                return res.json({ success: false, message: "Internal Server Error" })
             }
 
         }
