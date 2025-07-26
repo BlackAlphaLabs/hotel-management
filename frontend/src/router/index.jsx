@@ -7,8 +7,8 @@ import Register from "../pages/Register";
 import VerifyOTPE from "../pages/VerifyOTPE";
 import Dashboard from "../layouts/Dashboard";
 import PrivateRoute from "./PrivateRoute";
-// import Dashboard from "../pages/admin/Dashboard";
-// import Layout from "../layouts/Layout";
+import DashHome from "../pages/Dashboard/DashHome";
+import DashError from "../components/Dash/DashError";
 
 const AppRouter = () => (
     <BrowserRouter>
@@ -23,27 +23,15 @@ const AppRouter = () => (
             <Route path="/register" element={<Register />} />
             <Route path="/verify-email-otp" element={<VerifyOTPE />} />
 
-            {/* <Route
-                path="/dashboard"
-                element={
-                    <Dashboard />
-                }
-            /> */}
 
 
-            <Route
-                path="/dashboard"
-                element={
-                    <PrivateRoute roles={["guest"]}>
-                        <Dashboard />
-                    </PrivateRoute>
-                }
-            />
+            <Route path="/dashboard/" element={<PrivateRoute roles={["guest"]}><Dashboard /></PrivateRoute> } >
+                <Route path="*" element={<DashError type="developing" />}/>
+                <Route path="home" element={<PrivateRoute roles={["guest"]}><DashHome /></PrivateRoute> } />
+                
+            </Route>
 
 
-            {/* <Route element={<Layout />}>
-                <Route path="/admin/dashboard" element={<Dashboard />} />
-            </Route> */}
         </Routes>
     </BrowserRouter>
 );
