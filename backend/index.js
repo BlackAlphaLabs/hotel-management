@@ -10,6 +10,8 @@ require("dotenv").config();
 
 const app = express();
 
+const authRoute = require('./routes/authRoute')
+
 // Middleware
 ConnectDB()
 app.use(helmet());
@@ -32,6 +34,7 @@ app.use(limiter);
 const csrfProtection = csrf({ cookie: true });
 // app.use(csrfProtection); // DISABLED for development
 
+app.use('/auth', authRoute)
 
 app.get('/', (req, res) => {
     res.send(`Server running on port ${process.env.PORT}`);

@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const UserOTP = require("../models/UserOTP");
 const sendEmail = require("../utils/emailTransporter");
 
-const ControllerName = {
+const authController = {
     register: async (req, res) => {
         try {
             const { username, email, password } = req.body
@@ -99,7 +99,49 @@ const ControllerName = {
         catch (err) {
             console.log(err)
         }
+    },
+
+    veriftEamilOTP: async (req, res) => {
+        try {
+            const token = req.header("Authorization")?.replace("Bearer ", "");
+            if (!token) return res.status(401).json({ message: "Access denied. No token provided." });
+
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            const user = await User.findOne({ email: decoded.email }).select("-password");
+            if (!user) return res.status(404).json({ message: "User not found" });
+
+            const checkotprecode = await UserOTP.findOne({ email: decoded.email })
+
+            if (!checkotprecode) {
+                return res.status(404).json({ message: "OTP Reocode Not found" });
+            }
+
+            const { otp } = req.body
+
+            const otpcheck = await bcrypt.compare(otp, checkotprecode.otp)
+
+            if (!otpcheck) {
+                return res.status(404).json({ message: "OTP Not Match" })
+            }
+
+            const updateuser = await User.findOneAndUpdate(
+                { email: email },
+                { $set: { isEmailVerified: true } },
+                { new: true }
+            )
+
+            if(updateuser){
+                return res.json({ success: true, message: "Email Verification Successful"})
+            }
+            else{
+                return res.json({ success: false, message: "Internal Server Error"})
+            }
+
+        }
+        catch (err) {
+            console.log(err)
+        }
     }
 };
 
-module.exports = ControllerName;    
+module.exports = authController;    
