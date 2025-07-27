@@ -146,7 +146,7 @@ const Nav = () => {
         >
             <div className="flex justify-between items-center">
                 <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-stone-900">
-                    BlueOcean Hotel
+                    JehanKandy Hotels
                 </h1>
 
                 {/* Desktop Menu: visible ONLY on xl screens */}

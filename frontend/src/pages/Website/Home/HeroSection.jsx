@@ -5,7 +5,7 @@ const HeroSection = () => {
         <div
             className="relative min-h-screen bg-cover bg-center"
             style={{
-                backgroundImage: `url(https://cdn.pixabay.com/photo/2018/11/08/22/29/lake-3803443_1280.jpg)`,
+                backgroundImage: `url(https://cdn.pixabay.com/photo/2020/08/18/16/11/berchtesgaden-5498653_960_720.jpg)`,
             }}
         >
             {/* Lighter dark transparent overlay */}
