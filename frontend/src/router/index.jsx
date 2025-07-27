@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "../pages/Login";
 import WebsiteLayout from "../layouts/WebsiteLayout";
-import Home from "../pages/Website/Home";
 import ErrorCom from "../components/Error/ErrorCom";
 import Register from "../pages/Register";
 import VerifyOTPE from "../pages/VerifyOTPE";
@@ -9,6 +8,7 @@ import Dashboard from "../layouts/Dashboard";
 import PrivateRoute from "./PrivateRoute";
 import DashHome from "../pages/Dashboard/DashHome";
 import DashError from "../components/Dash/DashError";
+import Home from "../pages/Website/Home/Home";
 
 const AppRouter = () => (
     <BrowserRouter>

@@ -12,7 +12,7 @@ const WebsiteLayout = () => {
 
 
             {/* ✅ Main Content */}
-            <main className="flex-1 px-4 py-6 bg-gray-50">
+            <main className="">
                 <Outlet />
             </main>
 

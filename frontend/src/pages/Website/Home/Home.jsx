@@ -1,15 +1,10 @@
-import React, { useState } from 'react'
-import DateInput from '../../components/Form/DateInput'
-import DefaultInput from '../../components/Form/DefaultInput'
-import Dropdown from '../../components//Form/Dropdown'
-import FileInput from '../../components/Form/FileInput'
-import TextAreaInput from '../../components/Form/TextAreaInput'
-import DefaultBtn from '../../components/Buttons/DefultBtn'
+import HeroSection from './HeroSection'
 
 const Home = () => {
 
     return (
         <div className="">
+            <HeroSection />
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores adipisci, commodi vero aliquam ipsam temporibus minus cupiditate placeat. Nulla facilis voluptatibus a beatae corporis, voluptatem natus. Sit repellendus quisquam ad.
             Qui suscipit atque natus sunt asperiores voluptates maiores doloremque nesciunt saepe culpa cupiditate, necessitatibus, eligendi repellat officiis dolorem. Minus laborum atque, corrupti laudantium voluptas totam velit aut aliquid alias optio!
             Illum quis, blanditiis doloribus neque minus ducimus earum cupiditate at eaque asperiores quisquam dolore nemo inventore labore quod! Vero nulla, architecto quam nemo ab ut deserunt totam nam eius iste.
