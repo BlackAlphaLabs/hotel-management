@@ -149,6 +149,7 @@ const Nav = () => {
                     JehanKandy Hotels
                 </h1>
 
+
                 {/* Desktop Menu: visible ONLY on xl screens */}
                 <nav className="hidden xl:flex gap-8 items-center">{renderNavItems()}</nav>
 
