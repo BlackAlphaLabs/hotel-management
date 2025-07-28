@@ -18,7 +18,7 @@ const HeroSection = () => {
                     {/* Left content */}
                     <div className="w-full">
                         <p className="font-bold text-[0.75rem] sm:text-sm tracking-[0.2rem] uppercase">
-                            This should definitely be bold
+                            Discover the Essence of Comfort
                         </p>
 
                         <div className="uppercase mt-6 text-3xl sm:text-4xl md:text-5xl tracking-[0.3rem] font-medium">
