@@ -9,6 +9,7 @@ import PrivateRoute from "./PrivateRoute";
 import DashHome from "../pages/Dashboard/DashHome";
 import DashError from "../components/Dash/DashError";
 import Home from "../pages/Website/Home/Home";
+import News from "../pages/Website/News/News";
 
 const AppRouter = () => (
     <BrowserRouter>
@@ -17,6 +18,7 @@ const AppRouter = () => (
             <Route path="/" element={<WebsiteLayout />}>
                 <Route path="*" element={<ErrorCom errorCode={404} errorMessage="Page Not Found" />} />
                 <Route index element={<Home />} />
+                <Route path="/news" element={<News /> } />
             </Route>
 
             <Route path="/login" element={<Login />} />

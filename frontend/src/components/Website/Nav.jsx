@@ -34,7 +34,7 @@ const Nav = () => {
 
     const renderSubmenu = (submenu, parentId) => (
         <ul
-            className={`mt-5 absolute left-0 top-full bg-white text-stone-900 shadow-xl rounded-lg mt-2 py-2 min-w-[180px] z-50 transition-all duration-200
+            className={`absolute left-0 top-full bg-white text-stone-900 shadow-xl rounded-lg mt-2 py-2 min-w-[180px] z-[999] transition-all duration-200
                 ${openSubmenuId === parentId ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}
             `}
         >
@@ -73,8 +73,8 @@ const Nav = () => {
     const renderNavItems = (isMobile = false) =>
         navdata.flatMap((item) => {
             const isAccount = item.name === 'My Account';
-
             let submenu = item.submenu;
+
             if (isAccount) {
                 submenu = item.submenu.filter((sub) =>
                     auth.token
@@ -87,7 +87,7 @@ const Nav = () => {
 
             if (!isMobile && hasSubmenu) {
                 return (
-                    <div key={item.id} className="relative" ref={navRef}>
+                    <div key={item.id} className="relative">
                         <button
                             className="flex items-center gap-1 hover:text-amber-700 text-lg"
                             onClick={() => toggleSubmenu(item.id)}
@@ -96,8 +96,7 @@ const Nav = () => {
                             {item.name}
                             <ChevronDown
                                 size={16}
-                                className={`transition-transform text-stone-700 ${openSubmenuId === item.id ? 'rotate-180' : ''
-                                    }`}
+                                className={`transition-transform text-stone-700 ${openSubmenuId === item.id ? 'rotate-180' : ''}`}
                             />
                         </button>
                         {renderSubmenu(submenu, item.id)}
@@ -127,7 +126,7 @@ const Nav = () => {
                 <Link
                     key={item.id}
                     to={item.link}
-                    className={`text-lg  ${isMobile ? 'block text-stone-800' : 'hover:text-amber-700'}`}
+                    className={`text-lg ${isMobile ? 'block text-stone-800' : 'hover:text-amber-700'}`}
                     onClick={() => {
                         setMobileMenuOpen(false);
                         setOpenSubmenuId(null);
@@ -149,11 +148,12 @@ const Nav = () => {
                     JehanKandy Hotels
                 </h1>
 
+                {/* Desktop Menu */}
+                <nav className="hidden xl:flex gap-8 items-center" ref={navRef}>
+                    {renderNavItems()}
+                </nav>
 
-                {/* Desktop Menu: visible ONLY on xl screens */}
-                <nav className="hidden xl:flex gap-8 items-center">{renderNavItems()}</nav>
-
-                {/* Mobile/Tablet Toggle Button (below xl) */}
+                {/* Mobile/Tablet Toggle */}
                 <div className="xl:hidden mt-3">
                     <button onClick={() => setMobileMenuOpen((prev) => !prev)} className="focus:outline-none text-stone-900">
                         {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -161,9 +161,9 @@ const Nav = () => {
                 </div>
             </div>
 
-            {/* Mobile Menu (shows everything flat) */}
+            {/* Mobile Menu Drawer */}
             {mobileMenuOpen && (
-                <div className="fixed top-0 left-0 h-full bg-white text-stone-900 shadow-xl p-5 space-y-2 max-w-xs w-full z-50 overflow-y-auto">
+                <div className="fixed top-0 left-0 h-full bg-white text-stone-900 shadow-xl p-5 space-y-2 max-w-xs w-full z-[999] overflow-y-auto">
                     {renderNavItems(true)}
                 </div>
             )}
